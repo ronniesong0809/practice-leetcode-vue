@@ -8,35 +8,9 @@
       </a-tag>
     </span>
     <span slot="frequency" slot-scope="frequency">
-      <a-tag
-        :color="
-          frequency === 0
-            ? 'lime'
-            : Math.round(frequency) === 0
-            ? 'gold'
-            : Math.round(frequency) === 1
-            ? 'orange'
-            : Math.round(frequency) === 2
-            ? 'volcano'
-            : Math.round(frequency) === 3
-            ? 'red'
-            : 'magenta'
-        "
-      >
-        {{
-          frequency === 0
-            ? "UR"
-            : Math.round(frequency) === 0
-            ? "VL"
-            : Math.round(frequency) === 1
-            ? "L"
-            : Math.round(frequency) === 2
-            ? "M"
-            : Math.round(frequency) === 3
-            ? "H"
-            : "VH"
-        }}
-      </a-tag>
+      <!-- <ProgressBar v-bind:data="frequency" />
+      <Rate v-bind:data="frequency" /> -->
+      <Tag v-bind:data="frequency" />
     </span>
     <span slot="tags" slot-scope="tags">
       <a-tag v-for="tag in tags" :key="tag">
@@ -48,6 +22,9 @@
 
 <script>
 import { getAllQuestions } from "@/apis/getQuestions";
+import ProgressBar from "@/components/ProgressBar";
+import Rate from "@/components/Rate";
+import Tag from "@/components/Tag";
 
 const columns = [
   {
@@ -84,7 +61,7 @@ const columns = [
     sorter: (a, b) => a.tags.length - b.tags.length
   }
 ];
-
+/* eslint-disable */
 export default {
   name: "Questions",
   data() {
@@ -97,15 +74,18 @@ export default {
     this.fetchQuestions();
   },
   methods: {
-    toFixed(value) {
-      return value.toFixed(2);
-    },
     async fetchQuestions() {
       getAllQuestions().then(value => {
         const data = value.data;
         this.questions = data;
       });
     }
+  },
+  components: {
+    ProgressBar,
+    Rate,
+    Tag
   }
 };
 </script>
+/* eslint-enable */
