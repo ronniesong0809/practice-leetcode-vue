@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getTopQuestions } from "@/apis/getQuestions";
+import { getAllQuestions } from "@/apis/getQuestions";
 
 const columns = [
   {
@@ -96,7 +96,7 @@ export default {
       return value.toFixed(2);
     },
     async fetchQuestions() {
-      getTopQuestions().then(value => {
+      getAllQuestions().then(value => {
         const data = value.data;
         this.questions = data;
       });

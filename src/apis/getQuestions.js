@@ -1,5 +1,9 @@
 import axios from "axios";
 
+export function getAllQuestions() {
+  return getQuestions("all");
+}
+
 export function getTopQuestions() {
   return getQuestions("top/500");
 }
