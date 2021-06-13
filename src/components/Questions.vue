@@ -53,30 +53,35 @@ const columns = [
   {
     title: "ID",
     dataIndex: "id",
-    key: "id"
+    key: "id",
+    sorter: (a, b) => a.id - b.id
   },
   {
     title: "Title",
     dataIndex: "title",
-    key: "title"
+    key: "title",
+    sorter: (a, b) => a.title.localeCompare(b.title)
   },
   {
     title: "Level",
     key: "level",
     dataIndex: "level",
-    scopedSlots: { customRender: "level" }
+    scopedSlots: { customRender: "level" },
+    sorter: (a, b) => a.level - b.level
   },
   {
     title: "Frequency",
     dataIndex: "frequency",
     key: "frequency",
-    scopedSlots: { customRender: "frequency" }
+    scopedSlots: { customRender: "frequency" },
+    sorter: (a, b) => a.frequency - b.frequency
   },
   {
     title: "Tags",
     key: "tags",
     dataIndex: "tags",
-    scopedSlots: { customRender: "tags" }
+    scopedSlots: { customRender: "tags" },
+    sorter: (a, b) => a.tags.length - b.tags.length
   }
 ];
 
