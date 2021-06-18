@@ -1,72 +1,43 @@
 <template>
-  <a-table :columns="columns" :data-source="questions" rowKey="id">
-    <span slot="level" slot-scope="level">
-      <a-tag
-        :color="level === 1 ? 'green' : level == 2 ? 'geekblue' : 'volcano'"
-      >
-        {{ level === 1 ? "Easy" : level == 2 ? "Medium" : "Hard" }}
-      </a-tag>
-    </span>
-    <span slot="frequency" slot-scope="frequency">
-      <!-- <ProgressBar v-bind:data="frequency" />
-      <Rate v-bind:data="frequency" /> -->
-      <Tag v-bind:data="frequency" />
-    </span>
-    <span slot="tags" slot-scope="tags">
-      <a-tag v-for="tag in tags" :key="tag">
-        {{ tag }}
-      </a-tag>
-    </span>
-  </a-table>
+  <v-card>
+    <v-card-title>
+    </v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="questions"
+      :items-per-page="20"
+      multi-sort
+      class="elevation-1"
+    >
+      <template v-slot:[`item.title`]="{ item }">
+        <a :href="item.url">
+          {{ item.title }}
+        </a>
+      </template>
+      <template v-slot:[`item.level`]="{ item }">
+        {{ item.level === 1 ? "Easy" : item.level == 2 ? "Medium" : "Hard" }}
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
 import { getAllQuestions } from "@/apis/getQuestions";
-import ProgressBar from "@/components/ProgressBar";
-import Rate from "@/components/Rate";
-import Tag from "@/components/Tag";
 
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "id",
-    key: "id",
-    sorter: (a, b) => a.id - b.id
-  },
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-    sorter: (a, b) => a.title.localeCompare(b.title)
-  },
-  {
-    title: "Level",
-    key: "level",
-    dataIndex: "level",
-    scopedSlots: { customRender: "level" },
-    sorter: (a, b) => a.level - b.level
-  },
-  {
-    title: "Frequency",
-    dataIndex: "frequency",
-    key: "frequency",
-    scopedSlots: { customRender: "frequency" },
-    sorter: (a, b) => a.frequency - b.frequency
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    scopedSlots: { customRender: "tags" },
-    sorter: (a, b) => a.tags.length - b.tags.length
-  }
+const headers = [
+  { text: "Id", align: "start", value: "id" },
+  { text: "Title", value: "title" },
+  { text: "Level", value: "level" },
+  { text: "Frequency", value: "frequency" },
+  { text: "Tags", value: "tags", sortable: false }
 ];
 /* eslint-disable */
 export default {
   name: "Questions",
   data() {
     return {
-      columns,
+      search: "",
+      headers,
       questions: []
     };
   },
@@ -80,11 +51,6 @@ export default {
         this.questions = data;
       });
     }
-  },
-  components: {
-    ProgressBar,
-    Rate,
-    Tag
   }
 };
 </script>
