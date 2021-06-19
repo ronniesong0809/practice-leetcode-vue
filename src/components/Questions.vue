@@ -22,6 +22,8 @@
       item-key="id"
       show-expand
       class="elevation-1"
+      :loading="!questions.length"
+      loading-text="Loading... Please wait"
     >
       <template v-slot:[`item.title`]="{ item }">
         <a :href="item.url" class="green--text text--darken-4">
