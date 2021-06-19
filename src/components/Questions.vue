@@ -14,7 +14,7 @@
     <v-data-table
       :headers="headers"
       :items="questions"
-      :items-per-page="50"
+      :items-per-page="10"
       :search="search"
       multi-sort
       :single-expand="true"
@@ -22,6 +22,8 @@
       item-key="id"
       show-expand
       class="elevation-1"
+      :loading="!questions.length"
+      loading-text="Loading... Please wait"
     >
       <template v-slot:[`item.title`]="{ item }">
         <a :href="item.url" class="green--text text--darken-4">
@@ -93,13 +95,13 @@
 import { getAllQuestions } from "@/apis/getQuestions";
 
 const headers = [
-  { text: "#", align: "start", value: "id" },
-  { text: "Title", value: "title" },
-  { text: "Tags", value: "tags", sortable: false },
-  { text: "Companies", value: "companies", sortable: false },
-  { text: "Difficulty", value: "level" },
-  { text: "Frequency", value: "frequency", filterable: false },
-  { text: "", value: "data-table-expand" }
+  { text: "#", align: "start", value: "id", width: "5%" },
+  { text: "Title", value: "title", width: "30%" },
+  { text: "Tags", value: "tags", width: "20%", sortable: false },
+  { text: "Companies", value: "companies", width: "25%", sortable: false },
+  { text: "Difficulty", value: "level", width: "10%" },
+  { text: "Frequency", value: "frequency", width: "5%", filterable: false },
+  { text: "", value: "data-table-expand", width: "5%" }
 ];
 
 export default {

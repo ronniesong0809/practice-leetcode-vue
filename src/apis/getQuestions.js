@@ -9,5 +9,5 @@ export function getTopQuestions() {
 }
 
 function getQuestions(endpoint) {
-  return axios.get(`http://127.0.0.1:3000/${endpoint}`);
+  return axios.get(`${process.env.VUE_APP_BASEURL}/${endpoint}`);
 }
