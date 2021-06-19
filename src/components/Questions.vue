@@ -51,6 +51,29 @@
           </v-progress-linear>
         </template>
       </template>
+      <template v-slot:[`item.tags`]="{ item }">
+        <v-chip
+          class="ma-1"
+          x-small
+          v-for="tag in item.tags"
+          :key="tag"
+          @click="searchKey(tag)"
+        >
+          {{ tag }}
+        </v-chip>
+      </template>
+      <template v-slot:[`item.companies`]="{ item }">
+        <v-chip
+          class="ma-1"
+          x-small
+          v-for="company in item.companies"
+          :key="company"
+          @click="searchKey(company)"
+        >
+          <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
+          {{ company }}
+        </v-chip>
+      </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           Search
@@ -72,9 +95,10 @@ import { getAllQuestions } from "@/apis/getQuestions";
 const headers = [
   { text: "#", align: "start", value: "id" },
   { text: "Title", value: "title" },
+  { text: "Tags", value: "tags", sortable: false },
+  { text: "Companies", value: "companies", sortable: false },
   { text: "Difficulty", value: "level" },
   { text: "Frequency", value: "frequency", filterable: false },
-  { text: "Tags", value: "tags", sortable: false },
   { text: "", value: "data-table-expand" }
 ];
 
@@ -104,6 +128,9 @@ export default {
       if (frequency >= 50 && frequency < 75) return "green lighten-1";
       else if (frequency >= 75 && frequency < 99) return "green darken-2";
       else return "blue darken-1";
+    },
+    searchKey(key) {
+      this.search = key;
     },
     async fetchQuestions() {
       getAllQuestions().then(value => {
