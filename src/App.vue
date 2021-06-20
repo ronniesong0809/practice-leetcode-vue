@@ -6,6 +6,7 @@
         <router-link to="/about">About</router-link>
       </div>
       <DarkTheme />
+      <ScrollTotop />
       <router-view />
     </v-app>
   </div>
@@ -13,10 +14,12 @@
 
 <script>
 import DarkTheme from "@/components/DarkTheme.vue";
+import ScrollTotop from "@/components/ScrollTotop.vue";
 
 export default {
   components: {
-    DarkTheme
+    DarkTheme,
+    ScrollTotop
   }
 };
 </script>

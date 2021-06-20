@@ -15,7 +15,7 @@
       :headers="headers"
       :items="questions"
       :page.sync="page"
-      :items-per-page="10"
+      :items-per-page="50"
       @page-count="pageCount = $event"
       hide-default-footer
       :search="search"
