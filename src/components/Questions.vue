@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-container>
     <v-card-title>
       Questions
       <v-spacer> </v-spacer>
@@ -14,7 +14,10 @@
     <v-data-table
       :headers="headers"
       :items="questions"
+      :page.sync="page"
       :items-per-page="10"
+      @page-count="pageCount = $event"
+      hide-default-footer
       :search="search"
       multi-sort
       :single-expand="true"
@@ -26,7 +29,7 @@
       loading-text="Loading... Please wait"
     >
       <template v-slot:[`item.title`]="{ item }">
-        <a :href="item.url" class="green--text text--darken-4">
+        <a :href="item.url">
           {{ item.title }}
         </a>
       </template>
@@ -88,7 +91,15 @@
         </td>
       </template>
     </v-data-table>
-  </v-card>
+    <div class="text-center">
+      <v-pagination
+        class="py-4"
+        v-model="page"
+        :length="pageCount"
+        :total-visible="10"
+      ></v-pagination>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -99,15 +110,17 @@ const headers = [
   { text: "Title", value: "title", width: "30%" },
   { text: "Tags", value: "tags", width: "20%", sortable: false },
   { text: "Companies", value: "companies", width: "25%", sortable: false },
-  { text: "Difficulty", value: "level", width: "10%" },
-  { text: "Frequency", value: "frequency", width: "5%", filterable: false },
-  { text: "", value: "data-table-expand", width: "5%" }
+  { text: "Difficulty", value: "level", width: "6%" },
+  { text: "Frequency", value: "frequency", width: "10%", filterable: false },
+  { text: "", value: "data-table-expand" }
 ];
 
 export default {
   name: "Questions",
   data() {
     return {
+      page: 1,
+      pageCount: 0,
       search: "",
       expanded: [],
       headers,
