@@ -34,7 +34,7 @@
         </a>
       </template>
       <template v-slot:[`item.level`]="{ item }">
-        <v-chip small :color="getChipColor(item.level)" dark>
+        <v-chip x-small :color="getChipColor(item.level)" dark>
           {{
             item.level === 1
               ? "Easy 🍀"
@@ -57,27 +57,31 @@
         </template>
       </template>
       <template v-slot:[`item.tags`]="{ item }">
-        <v-chip
-          class="ma-1"
-          x-small
-          v-for="tag in item.tags"
-          :key="tag"
-          @click="searchKey(tag)"
-        >
-          {{ tag }}
-        </v-chip>
+        <v-chip-group exact column>
+          <v-chip
+            class="ma-1"
+            x-small
+            v-for="tag in item.tags"
+            :key="tag"
+            @click="searchKey(tag)"
+          >
+            {{ tag }}
+          </v-chip>
+        </v-chip-group>
       </template>
       <template v-slot:[`item.companies`]="{ item }">
-        <v-chip
-          class="ma-1"
-          x-small
-          v-for="company in item.companies"
-          :key="company"
-          @click="searchKey(company)"
-        >
-          <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
-          {{ company }}
-        </v-chip>
+        <v-chip-group exact column>
+          <v-chip
+            class="ma-1"
+            x-small
+            v-for="company in item.companies"
+            :key="company"
+            @click="searchKey(company)"
+          >
+            <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
+            {{ company }}
+          </v-chip>
+        </v-chip-group>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
@@ -106,13 +110,13 @@
 import { getAllQuestions } from "@/apis/getQuestions";
 
 const headers = [
-  { text: "#", align: "start", value: "id", width: "5%" },
-  { text: "Title", value: "title", width: "30%" },
-  { text: "Tags", value: "tags", width: "20%", sortable: false },
-  { text: "Companies", value: "companies", width: "25%", sortable: false },
-  { text: "Difficulty", value: "level", width: "6%" },
-  { text: "Frequency", value: "frequency", width: "10%", filterable: false },
-  { text: "", value: "data-table-expand" }
+  { text: "", value: "data-table-expand" },
+  { text: "#", align: "start", value: "id", width: "80px" },
+  { text: "title", value: "title", width: "200px" },
+  { text: "diffic.", value: "level", width: "110px" },
+  { text: "freq.", value: "frequency", width: "100px", filterable: false },
+  { text: "tags", value: "tags", width: "300px", sortable: false },
+  { text: "companies", value: "companies", width: "300px", sortable: false }
 ];
 
 export default {
