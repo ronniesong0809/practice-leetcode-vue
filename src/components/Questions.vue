@@ -115,7 +115,7 @@ const headers = [
   { text: "title", value: "title", width: "200px" },
   { text: "diffic.", value: "level", width: "110px" },
   { text: "freq.", value: "frequency", width: "100px", filterable: false },
-  { text: "tags", value: "tags", width: "300px", sortable: false },
+  { text: "tags", value: "tags", width: "200px", sortable: false },
   { text: "companies", value: "companies", width: "300px", sortable: false }
 ];
 

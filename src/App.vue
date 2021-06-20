@@ -1,14 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <v-app>
+      <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+      </div>
+      <DarkTheme />
       <router-view />
     </v-app>
   </div>
 </template>
+
+<script>
+import DarkTheme from "@/components/DarkTheme.vue";
+
+export default {
+  components: {
+    DarkTheme
+  }
+};
+</script>
 
 <style>
 #app {
