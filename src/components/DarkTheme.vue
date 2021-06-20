@@ -1,14 +1,15 @@
 <template>
-  <div v-if="!$vuetify.theme.dark">
-    <v-btn v-on="on" fab dark fixed top right color="black" @click="darkMode">
-      <v-icon color="yellow lighten-1">mdi-moon-waning-crescent</v-icon>
+  <v-fab-transition v-if="!$vuetify.theme.dark">
+    <v-btn class="moon" fab dark color="black" @click="darkMode">
+      <v-icon color="yellow lighten-1">mdi-weather-night</v-icon>
     </v-btn>
-  </div>
-  <div v-else>
-    <v-btn v-on="on" fab dark fixed top right color="primary" @click="darkMode">
+  </v-fab-transition>
+
+  <v-fab-transition v-else>
+    <v-btn class="sun" fab dark color="primary" @click="darkMode">
       <v-icon color="yellow lighten-1">mdi-white-balance-sunny</v-icon>
     </v-btn>
-  </div>
+  </v-fab-transition>
 </template>
 
 <script>
@@ -20,3 +21,14 @@ export default {
   }
 };
 </script>
+
+<style>
+/* .sun {
+  animation: rotation 4s infinite linear;
+} */
+
+.moon {
+  transform: rotate(-90deg);
+  /* animation: swing 2s infinite linear; */
+}
+</style>
