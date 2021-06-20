@@ -149,7 +149,7 @@ export default {
       else return "blue darken-1";
     },
     searchKey(key) {
-      this.search = key;
+      this.search = this.search === key ? "" : key;
     },
     async fetchQuestions() {
       getAllQuestions().then(value => {
