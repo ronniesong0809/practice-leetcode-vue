@@ -1,25 +1,22 @@
 <template>
-  <div id="app">
-    <v-app>
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-      </div>
-      <v-layout column class="fab-container">
-        <ScrollTotop class="mx-4" />
-        <DarkTheme class="ma-4" />
-      </v-layout>
-      <router-view />
-    </v-app>
-  </div>
+  <v-app id="app">
+    <Header />
+    <v-layout column class="fab-container">
+      <ScrollTotop class="mx-4" />
+      <DarkTheme class="ma-4" />
+    </v-layout>
+    <router-view />
+  </v-app>
 </template>
 
 <script>
 import DarkTheme from "@/components/DarkTheme.vue";
 import ScrollTotop from "@/components/ScrollTotop.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   components: {
+    Header,
     DarkTheme,
     ScrollTotop
   }
