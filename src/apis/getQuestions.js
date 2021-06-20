@@ -1,11 +1,15 @@
 import axios from "axios";
 
+export function getAllQuestions() {
+  return getQuestions("all");
+}
+
 export function getTagQuestions(topic) {
   return getQuestions("tag/" + topic);
 }
 
-export function getAllQuestions() {
-  return getQuestions("all");
+export function getCompanyQuestions(topic) {
+  return getQuestions("company/" + topic);
 }
 
 export function getTopQuestions() {
@@ -13,6 +17,5 @@ export function getTopQuestions() {
 }
 
 function getQuestions(endpoint) {
-  console.log(`${process.env.VUE_APP_BASEURL}/${endpoint}`);
   return axios.get(`${process.env.VUE_APP_BASEURL}/${endpoint}`);
 }

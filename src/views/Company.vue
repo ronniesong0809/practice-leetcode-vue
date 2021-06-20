@@ -1,18 +1,18 @@
 <template>
-  <div class="tag">
+  <div class="company">
     <Problems :questions="questions" />
   </div>
 </template>
 
 <script>
 import Problems from "@/components/Questions.vue";
-import { getTagQuestions } from "@/apis/getQuestions";
+import { getCompanyQuestions } from "@/apis/getQuestions";
 
 export default {
-  name: "Tag",
+  name: "Company",
   data() {
     return {
-      params: this.$route.params.tag,
+      params: this.$route.params.company,
       questions: []
     };
   },
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async fetchQuestions() {
-      getTagQuestions(this.params).then(value => {
+      getCompanyQuestions(this.params).then(value => {
         const data = value.data;
         this.questions = data;
       });

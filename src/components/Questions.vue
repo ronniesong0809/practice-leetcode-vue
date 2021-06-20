@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card-title>
-      Questions
+      {{ questions.length }} Questions
       <v-spacer> </v-spacer>
       <v-text-field
         v-model="search"
@@ -129,7 +129,7 @@ export default {
     };
   },
   props: {
-    questions: Object
+    questions: Array
   },
   methods: {
     getChipColor(level) {
@@ -146,11 +146,7 @@ export default {
       else return "blue darken-1";
     },
     searchKey(key) {
-      this.search === key
-        ? this.$route.name === "Home"
-          ? this.$router.push("tag/" + key)
-          : this.$router.push(key)
-        : (this.search = key);
+      this.search === key ? "" : (this.search = key);
     }
   }
 };
