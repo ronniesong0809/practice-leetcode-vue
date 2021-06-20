@@ -1,31 +1,30 @@
 <template>
-  <div class="home">
+  <div class="tag">
     <Problems :questions="questions" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Problems from "@/components/Questions.vue";
-import { getAllQuestions } from "@/apis/getQuestions";
+import { getTagQuestions } from "@/apis/getQuestions";
 
 export default {
-  name: "Home",
+  name: "Tag",
   data() {
     return {
+      params: this.$route.params.topic,
       questions: []
     };
   },
   components: {
     Problems
   },
-
   created() {
     this.fetchQuestions();
   },
   methods: {
     async fetchQuestions() {
-      getAllQuestions().then(value => {
+      getTagQuestions(this.params).then(value => {
         const data = value.data;
         this.questions = data;
       });

@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <v-toolbar dark flat>
+    <v-toolbar>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-toolbar-title>Practice Leetcode</v-toolbar-title>
       <template v-slot:extension>

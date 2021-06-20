@@ -107,8 +107,6 @@
 </template>
 
 <script>
-import { getAllQuestions } from "@/apis/getQuestions";
-
 const headers = [
   { text: "", value: "data-table-expand" },
   { text: "#", align: "start", value: "id", width: "80px" },
@@ -127,12 +125,11 @@ export default {
       pageCount: 0,
       search: "",
       expanded: [],
-      headers,
-      questions: []
+      headers
     };
   },
-  created() {
-    this.fetchQuestions();
+  props: {
+    questions: Object
   },
   methods: {
     getChipColor(level) {
@@ -149,13 +146,11 @@ export default {
       else return "blue darken-1";
     },
     searchKey(key) {
-      this.search = this.search === key ? "" : key;
-    },
-    async fetchQuestions() {
-      getAllQuestions().then(value => {
-        const data = value.data;
-        this.questions = data;
-      });
+      this.search === key
+        ? this.$route.name === "Home"
+          ? this.$router.push("tag/" + key)
+          : this.$router.push(key)
+        : (this.search = key);
     }
   }
 };
