@@ -1,15 +1,17 @@
 <template>
   <v-container>
-    <v-card-title>
-      {{ questions.length }} Questions
-      <v-spacer> </v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+    <v-card-title class="pb-4">
+      <v-row class="justify-center">
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="search" append-icon="mdi-magnify" hide-details>
+            <template v-slot:label>
+              Search from {{ questions.length }}
+              {{ $route.params.tag || $route.params.company }}
+              {{ questions.length === 0 ? "Question" : "Questions" }}
+            </template>
+          </v-text-field>
+        </v-col>
+      </v-row>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -34,7 +36,7 @@
         </a>
       </template>
       <template v-slot:[`item.level`]="{ item }">
-        <v-chip x-small :color="getChipColor(item.level)" dark>
+        <v-chip small :color="getChipColor(item.level)" dark>
           {{
             item.level === 1
               ? "Easy 🍀"
@@ -60,10 +62,10 @@
         <v-chip-group exact column>
           <v-chip
             class="ma-1"
-            x-small
+            small
             v-for="tag in item.tags"
             :key="tag"
-            @click="searchKey(tag)"
+            @click="searchTag(tag)"
           >
             {{ tag }}
           </v-chip>
@@ -73,10 +75,10 @@
         <v-chip-group exact column>
           <v-chip
             class="ma-1"
-            x-small
+            small
             v-for="company in item.companies"
             :key="company"
-            @click="searchKey(company)"
+            @click="searchCompany(company)"
           >
             <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
             {{ company }}
@@ -145,8 +147,15 @@ export default {
       else if (frequency >= 75 && frequency < 99) return "green darken-2";
       else return "blue darken-1";
     },
-    searchKey(key) {
-      this.search === key ? "" : (this.search = key);
+    searchTag(key) {
+      this.search === key
+        ? this.$router.push({ name: "Tag", params: { tag: key } })
+        : (this.search = key);
+    },
+    searchCompany(key) {
+      this.search === key
+        ? this.$router.push({ name: "Company", params: { company: key } })
+        : (this.search = key);
     }
   }
 };

@@ -5,7 +5,7 @@
       <ScrollTotop class="mx-4" />
       <DarkTheme class="ma-4" />
     </v-layout>
-    <router-view />
+    <router-view :key="$route.fullPath"/>
   </v-app>
 </template>
 
