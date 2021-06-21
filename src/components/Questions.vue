@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card-title class="pb-4">
+    <v-card-title class="pa-10">
       <v-row class="justify-center">
         <v-col cols="12" sm="6">
           <v-text-field v-model="search" append-icon="mdi-magnify" hide-details>
