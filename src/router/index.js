@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueGtag from "vue-gtag";
 import Home from "../views/Home.vue";
 import Tag from "../views/Tag.vue";
 import Company from "../views/Company.vue";
@@ -37,6 +38,10 @@ const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
 };
+
+Vue.use(VueGtag, {
+  config: { id: "G-08XMNGYK5C" }
+});
 
 const router = new VueRouter({
   mode: "history",
