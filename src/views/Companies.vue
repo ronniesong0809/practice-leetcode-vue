@@ -25,9 +25,7 @@ export default {
     async fetchQuestions() {
       getAllCompanies().then(value => {
         const data = value.data;
-        this.companies = data.sort((a, b) => {
-          return a.count < b.count ? 1 : a.count > b.count ? -1 : 0;
-        });
+        this.companies = data;
       });
     }
   }

@@ -5,7 +5,7 @@
         class="ma-1"
         v-for="item in data"
         :key="item.name"
-        @click="redirect(item.slug)"
+        @click="redirect(item.name)"
       >
         {{ item.name }}
         <v-chip class="ma-1" x-small color="primary" dark>
@@ -23,8 +23,8 @@ export default {
     data: Array
   },
   methods: {
-    redirect(slug) {
-      this.$router.replace("/company/" + slug);
+    redirect(name) {
+      this.$router.replace("/company/" + name);
     }
   }
 };
