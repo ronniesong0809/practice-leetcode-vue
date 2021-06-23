@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import VueGtag from "vue-gtag";
 import Home from "../views/Home.vue";
 import Tag from "../views/Tag.vue";
+import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
 
 Vue.use(VueRouter);
@@ -17,6 +18,11 @@ const routes = [
     path: "/tag/:tag",
     name: "Tag",
     component: Tag
+  },
+  {
+    path: "/company",
+    name: "Companies",
+    component: Companies
   },
   {
     path: "/company/:company",
