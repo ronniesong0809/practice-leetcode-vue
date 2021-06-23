@@ -1,18 +1,18 @@
 <template>
-  <div class="companies ma-16">
-    <TagsToChart :data="companies" />
+  <div class="tags ma-16">
+    <TagsToChart :data="tags" />
   </div>
 </template>
 
 <script>
 import TagsToChart from "@/components/TagsToChart";
-import { getAllCompanies } from "@/apis/getTags";
+import { getAllTopics } from "@/apis/getTags";
 
 export default {
-  name: "Companies",
+  name: "Tags",
   data() {
     return {
-      companies: []
+      tags: []
     };
   },
   components: {
@@ -23,9 +23,9 @@ export default {
   },
   methods: {
     async fetchQuestions() {
-      getAllCompanies().then(value => {
+      getAllTopics().then(value => {
         const data = value.data;
-        this.companies = data;
+        this.tags = data;
       });
     }
   }

@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import VueGtag from "vue-gtag";
 import Home from "../views/Home.vue";
+import Tags from "../views/Tags.vue";
 import Tag from "../views/Tag.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
@@ -13,6 +14,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/tag",
+    name: "Tags",
+    component: Tags
   },
   {
     path: "/tag/:tag",

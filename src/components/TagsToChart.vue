@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     redirect(name) {
-      this.$router.replace("/company/" + name);
+      this.$router.push(`${this.$router.history.current.path}/${name}`);
     }
   }
 };

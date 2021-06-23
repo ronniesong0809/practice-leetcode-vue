@@ -9,8 +9,11 @@
           <v-tab to="/">
             Home
           </v-tab>
+          <v-tab to="/tag">
+            Tags
+          </v-tab>
           <v-tab to="/company">
-            Company
+            Companies
           </v-tab>
           <v-tab to="/about">
             About
