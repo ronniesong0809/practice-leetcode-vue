@@ -5,7 +5,9 @@
       <ScrollTotop class="mx-4" />
       <DarkTheme class="ma-4" />
     </v-layout>
-    <router-view :key="$route.fullPath" />
+    <div id="content">
+      <router-view :key="$route.fullPath" />
+    </div>
   </v-app>
 </template>
 
@@ -28,26 +30,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 .fab-container {
   position: fixed;
   z-index: 1;
   bottom: 0px;
   right: 0px;
+}
+
+#content {
+  padding-top: 100px;
 }
 
 @keyframes move {
