@@ -24,11 +24,18 @@
 
     <v-navigation-drawer v-model="drawer" temporary app>
       <v-list rounded>
+        <v-list-item @click.stop="drawer = !drawer">
+          <v-list-item-title>Home</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+
         <v-list-item-group color="primary">
           <v-list-item to="/">
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>Algorithms</v-list-item-title>
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon>mdi-brain</v-icon>
             </v-list-item-icon>
           </v-list-item>
 
