@@ -108,6 +108,7 @@
               small
               v-for="tag in item.similarQuestions"
               :key="tag.title"
+              @click="searchQuestion(tag.title)"
             >
               {{ tag.title }}
             </v-chip>
@@ -191,7 +192,7 @@ const quickLinks = [
     color: "red",
     url: "https://www.youtube.com/results?search_query="
   },
-  { name: "github", color: "black", url: "https://github.com/search?q=" },
+  { name: "github", color: "primary", url: "https://github.com/search?q=" },
   { name: "search-web", color: "blue", url: "https://www.baidu.com/s?wd=" }
 ];
 
@@ -223,6 +224,9 @@ export default {
       if (frequency >= 50 && frequency < 75) return "green lighten-1";
       else if (frequency >= 75 && frequency < 99) return "green darken-2";
       else return "blue darken-1";
+    },
+    searchQuestion(key) {
+      this.search === key ? "" : (this.search = key);
     },
     searchTag(key) {
       this.search === key

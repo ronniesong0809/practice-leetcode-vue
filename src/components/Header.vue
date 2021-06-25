@@ -7,7 +7,7 @@
         <v-tabs>
           <v-tabs-slider></v-tabs-slider>
           <v-tab to="/">
-            Home
+            Algorithms
           </v-tab>
           <v-tab to="/tag">
             Tags
@@ -16,7 +16,7 @@
             Companies
           </v-tab>
           <v-tab to="/about">
-            About
+            More
           </v-tab>
         </v-tabs>
       </template>
