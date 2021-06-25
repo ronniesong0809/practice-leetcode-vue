@@ -85,20 +85,32 @@
           </v-chip>
         </v-chip-group>
       </template>
-      <template v-slot:expanded-item="{ item }">
+      <template v-slot:expanded-item="{ headers, item }">
         <td></td>
-        <td></td>
-        <td>
-          <div>
-            Search
+        <td :style="'max-width:' + headers[0].width">
+          <v-layout class="ma-4" column>
             <a
-              :href="
-                'https://www.youtube.com/results?search_query=' + item.title
-              "
+              class="my-2"
+              v-for="link in quickLinks"
+              :key="link.name"
+              :href="link.url + item.title"
             >
-              {{ item.title }}
+              <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
             </a>
-            on YouTube
+          </v-layout>
+        </td>
+        <td :style="'max-width:' + headers[3].width">
+          <div class="text-center">
+            <span>Similar Questions</span>
+            <v-divider class="ma-2" />
+            <v-chip
+              class="ma-1"
+              small
+              v-for="tag in item.similarQuestions"
+              :key="tag.title"
+            >
+              {{ tag.title }}
+            </v-chip>
           </div>
         </td>
         <td></td>
@@ -172,6 +184,17 @@ const headers = [
   { text: "companies", value: "companies", width: "300px", sortable: false }
 ];
 
+const quickLinks = [
+  { name: "google", color: "blue", url: "https://www.google.com/search?q=" },
+  {
+    name: "youtube",
+    color: "red",
+    url: "https://www.youtube.com/results?search_query="
+  },
+  { name: "github", color: "black", url: "https://github.com/search?q=" },
+  { name: "search-web", color: "blue", url: "https://www.baidu.com/s?wd=" }
+];
+
 export default {
   name: "Questions",
   data() {
@@ -180,7 +203,8 @@ export default {
       pageCount: 0,
       search: "",
       expanded: [],
-      headers
+      headers,
+      quickLinks
     };
   },
   props: {
