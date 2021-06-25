@@ -85,15 +85,68 @@
           </v-chip>
         </v-chip-group>
       </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          Search
-          <a
-            :href="'https://www.youtube.com/results?search_query=' + item.title"
-          >
-            {{ item.title }}
-          </a>
-          on YouTube
+      <template v-slot:expanded-item="{ item }">
+        <td></td>
+        <td></td>
+        <td>
+          <div>
+            Search
+            <a
+              :href="
+                'https://www.youtube.com/results?search_query=' + item.title
+              "
+            >
+              {{ item.title }}
+            </a>
+            on YouTube
+          </div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="py-5 text-center">
+          <div class="ma-1">
+            <span>0 ~ 6 months</span>
+            <v-divider class="ma-2" />
+            <v-chip
+              class="ma-1"
+              small
+              v-for="company in item.companyStats[1]"
+              :key="company.name"
+              @click="searchCompany(company.name)"
+            >
+              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
+              {{ company.name }}
+            </v-chip>
+          </div>
+          <div class="ma-1">
+            <span>6 months ~ 1 year</span>
+            <v-divider class="ma-2" />
+            <v-chip
+              class="ma-1"
+              small
+              v-for="company in item.companyStats[2]"
+              :key="company.name"
+              @click="searchCompany(company.name)"
+            >
+              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
+              {{ company.name }}
+            </v-chip>
+          </div>
+          <div class="ma-1">
+            <span>1 year ~ 2 years</span>
+            <v-divider class="ma-2" />
+            <v-chip
+              class="ma-1"
+              small
+              v-for="company in item.companyStats[3]"
+              :key="company.name"
+              @click="searchCompany(company.name)"
+            >
+              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
+              {{ company.name }}
+            </v-chip>
+          </div>
         </td>
       </template>
     </v-data-table>

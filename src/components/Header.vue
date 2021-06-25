@@ -24,7 +24,7 @@
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list rounded>
-        <v-list-item link to="/">
+        <v-list-item @click.stop="drawer = !drawer">
           <v-list-item-title>Home</v-list-item-title>
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
@@ -91,10 +91,10 @@ export default {
     return {
       drawer: null,
       companies: [
-        ["Amazon", "mdi-amazon", "/company/amazon"],
-        ["Facebook", "mdi-facebook", "/company/facebook"],
-        ["Google", "mdi-google", "/company/google"],
-        ["Linkedin", "mdi-linkedin", "/company/linkedin"]
+        ["Amazon", "mdi-amazon", "/company/Amazon"],
+        ["Facebook", "mdi-facebook", "/company/Facebook"],
+        ["Google", "mdi-google", "/company/Google"],
+        ["Linkedin", "mdi-linkedin", "/company/Linkedin"]
       ],
       tags: [
         ["Array", "mdi-code-array", "/tag/array"],
