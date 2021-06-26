@@ -25,7 +25,6 @@
             <v-timeline-item icon="mdi-file-document-multiple" fill-dot>
               <v-card class="elevation-5">
                 <v-card-title class="justify-center text-h6">
-                  
                   <span class="line-through mx-3">Similar Questions</span>
                   <v-icon color="green">mdi-check</v-icon>
                 </v-card-title>

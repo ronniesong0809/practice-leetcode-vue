@@ -29,6 +29,7 @@
       class="elevation-5"
       :loading="!questions.length"
       loading-text="Loading... Please wait"
+      mobile-breakpoint="0"
     >
       <template v-slot:[`item.title`]="{ item }">
         <a :href="item.url">
