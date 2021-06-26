@@ -38,9 +38,9 @@
       <template v-slot:[`item.level`]="{ item }">
         <v-chip small :color="getChipColor(item.level)" dark>
           {{
-            item.level === 1
+            item.level === "easy"
               ? "Easy 🍀"
-              : item.level === 2
+              : item.level === "medium"
               ? "Medium"
               : "Hard 🔥"
           }}
@@ -213,8 +213,8 @@ export default {
   },
   methods: {
     getChipColor(level) {
-      if (level == 1) return "green";
-      else if (level == 2) return "orange";
+      if (level == "easy") return "green";
+      else if (level == "medium") return "orange";
       else return "red";
     },
     getBarColor(frequency) {
