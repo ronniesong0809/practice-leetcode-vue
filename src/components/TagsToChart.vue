@@ -1,11 +1,22 @@
 <template>
   <v-row class="text-center">
     <v-col v-if="show" md="10" offset-md="1" lg="4" offset-lg="4">
-      <v-btn class="mb-2" @click="init">Show Tags</v-btn>
-      <Chart :chart-data="datacollection" />
+      <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
+        <v-icon left dark>
+          mdi-tag-multiple
+        </v-icon>
+        Show Tags
+      </v-btn>
+      <Chart :chart-data="datacollection" :options="chartOptions" />
     </v-col>
     <v-col v-else md="10" offset-md="1" lg="8" offset-lg="2">
-      <v-btn class="mb-2" @click="init">Show Chart</v-btn><br />
+      <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
+        <v-icon left dark>
+          mdi-chart-bar
+        </v-icon>
+        Show Chart
+      </v-btn>
+      <br />
       <v-chip
         class="ma-1"
         v-for="item in data"
@@ -35,34 +46,63 @@ export default {
       show: false,
       label: [],
       dataset: [],
+      backgroundColor: [],
+      borderColor: [],
+      hoverBackgroundColor: [],
+      hoverBorderColor: [],
       other: 0,
-      datacollection: {}
+      lastIndex: 0,
+      datacollection: {},
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     };
   },
   methods: {
     redirect(name) {
       this.$router.push(`${this.$router.history.current.path}/${name}`);
     },
-    getColor(alpha) {
-      return this.$vuetify.theme.dark
-        ? `rgba(33, 150, 243, ${alpha})`
-        : `rgba(156, 39, 176, ${alpha})`;
-    },
     init() {
-      this.show = !this.show;
       this.label = [];
       this.dataset = [];
+      this.backgroundColor = [];
+      this.borderColor = [];
+      this.hoverBackgroundColor = [];
+      this.hoverBorderColor = [];
       this.other = 0;
+    },
+    getColor(offset, alpha) {
+      offset = offset * 5;
+      const color = !this.$vuetify.theme.dark
+        ? `rgba(${156 + offset}, ${39 + offset}, ${176 - offset}, ${alpha})`
+        : `rgba(${33 + offset}, ${150 + offset}, ${243 - offset}, ${alpha})`;
+      return color;
+    },
+    setColor(index) {
+      this.backgroundColor.push(this.getColor(index, 0.8));
+      this.borderColor.push(this.getColor(index, 1));
+      this.hoverBackgroundColor.push(this.getColor(index, 0.4));
+      this.hoverBorderColor.push(this.getColor(index, 1));
+    },
+    setChartData() {
+      this.show = !this.show;
+      this.init();
       this.data.forEach((item, index) => {
-        if (index < 20) {
+        if (index < this.data.length / 5) {
           this.label.push(item.name);
           this.dataset.push(item.count);
+          this.setColor(index);
+          this.lastIndex = index;
         } else {
           this.other += item.count;
         }
       });
-      this.label.push("Other");
+      this.label.push(
+        Math.round(this.data.length - this.data.length / 5) + " Other"
+      );
       this.dataset.push(this.other);
+      this.setColor(this.lastIndex + 5);
 
       this.datacollection = {
         labels: this.label,
@@ -70,11 +110,11 @@ export default {
           {
             label: "Questions",
             data: this.dataset,
-            backgroundColor: this.getColor(0.5),
-            borderColor: this.getColor(1),
+            backgroundColor: this.backgroundColor,
+            borderColor: this.borderColor,
             borderWidth: 1,
-            hoverBackgroundColor: this.getColor(0.8),
-            hoverBorderColor: this.getColor(1)
+            hoverBackgroundColor: this.hoverBackgroundColor,
+            hoverBorderColor: this.hoverBorderColor
           }
         ]
       };
