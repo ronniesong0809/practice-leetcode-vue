@@ -1,6 +1,6 @@
 <template>
   <div class="companies ma-16">
-    <TagsToChart :data="companies" />
+    <TagsToChart :data="companies" :height="3000" />
   </div>
 </template>
 

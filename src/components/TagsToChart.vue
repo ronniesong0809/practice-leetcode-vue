@@ -1,13 +1,17 @@
 <template>
   <v-row class="text-center">
-    <v-col v-if="show" md="10" offset-md="1" lg="4" offset-lg="4">
+    <v-col v-if="show" sm="12" md="10" offset-md="1" lg="6" offset-lg="3">
       <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
         <v-icon left dark>
           mdi-tag-multiple
         </v-icon>
         Show Tags
       </v-btn>
-      <Chart :chart-data="datacollection" :options="chartOptions" />
+      <Chart
+        :height="height"
+        :chart-data="datacollection"
+        :options="chartOptions"
+      />
     </v-col>
     <v-col v-else md="10" offset-md="1" lg="8" offset-lg="2">
       <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
@@ -39,7 +43,8 @@ export default {
   components: { Chart },
   name: "TagsToChart",
   props: {
-    data: Array
+    data: Array,
+    height: Number
   },
   data() {
     return {
@@ -55,7 +60,13 @@ export default {
       datacollection: {},
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{ position: "top" }]
+        },
+        plugins: {
+          legend: false
+        }
       }
     };
   },
@@ -73,7 +84,7 @@ export default {
       this.other = 0;
     },
     getColor(offset, alpha) {
-      offset = offset * 5;
+      offset = offset * 2;
       const color = !this.$vuetify.theme.dark
         ? `rgba(${156 + offset}, ${39 + offset}, ${176 - offset}, ${alpha})`
         : `rgba(${33 + offset}, ${150 + offset}, ${243 - offset}, ${alpha})`;
@@ -89,7 +100,7 @@ export default {
       this.show = !this.show;
       this.init();
       this.data.forEach((item, index) => {
-        if (index < this.data.length / 5) {
+        if (item.count > 1) {
           this.label.push(item.name);
           this.dataset.push(item.count);
           this.setColor(index);
@@ -98,9 +109,7 @@ export default {
           this.other += item.count;
         }
       });
-      this.label.push(
-        Math.round(this.data.length - this.data.length / 5) + " Other"
-      );
+      this.label.push("Other");
       this.dataset.push(this.other);
       this.setColor(this.lastIndex + 5);
 
