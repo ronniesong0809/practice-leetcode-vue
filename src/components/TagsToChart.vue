@@ -66,6 +66,11 @@ export default {
         },
         plugins: {
           legend: false
+        },
+        onClick: (event, element) => {
+          if (element.length > 0) {
+            this.redirect(this.data[element[0]._index].name);
+          }
         }
       }
     };
