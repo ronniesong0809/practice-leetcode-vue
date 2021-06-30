@@ -87,7 +87,13 @@
         </v-chip-group>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
-        <td></td>
+        <td>
+          <v-btn x-small rounded @click="addToNotion(item.id)">
+            <v-icon>
+              mdi-plus
+            </v-icon>
+          </v-btn>{{message}}
+        </td>
         <td :style="'max-width:' + headers[0].width">
           <v-layout class="ma-4" column>
             <a
@@ -176,6 +182,8 @@
 </template>
 
 <script>
+import { postQuestionsToNotion } from "@/apis/postQuestions";
+
 const headers = [
   { text: "", value: "data-table-expand" },
   { text: "#", align: "start", value: "id", width: "80px" },
@@ -206,7 +214,8 @@ export default {
       search: "",
       expanded: [],
       headers,
-      quickLinks
+      quickLinks,
+      message: ""
     };
   },
   props: {
@@ -238,6 +247,12 @@ export default {
       this.search === key
         ? this.$router.push({ name: "Company", params: { company: key } })
         : (this.search = key);
+    },
+    addToNotion(id) {
+      console.log(id);
+      postQuestionsToNotion(id).then(response => {
+        this.message = response.data;
+      });
     }
   }
 };
