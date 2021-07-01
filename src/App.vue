@@ -5,7 +5,7 @@
       <ScrollTotop class="mx-4" />
       <DarkTheme class="ma-4" />
     </v-layout>
-    <div id="content">
+    <div id="content" style="height:100%">
       <router-view :key="$route.fullPath" />
     </div>
   </v-app>
@@ -40,7 +40,11 @@ export default {
 }
 
 #content {
-  padding-top: 100px;
+  margin-top: 150px;
+}
+
+.line-through {
+  text-decoration: line-through;
 }
 
 @keyframes move {

@@ -1,7 +1,5 @@
 <template>
-  <div class="company">
-    <Problems :questions="questions" />
-  </div>
+  <Problems class="company" :questions="questions" />
 </template>
 
 <script>

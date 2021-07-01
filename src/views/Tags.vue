@@ -1,7 +1,5 @@
 <template>
-  <div class="tags ma-16">
-    <TagsToChart :data="tags" :height="1500" />
-  </div>
+  <TagsToChart class="tags" :data="tags" :height="1500" />
 </template>
 
 <script>

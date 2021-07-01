@@ -1,39 +1,41 @@
 <template>
-  <v-row class="text-center">
-    <v-col v-if="show" sm="12" md="10" offset-md="1" lg="6" offset-lg="3">
-      <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
-        <v-icon left dark>
-          mdi-tag-multiple
-        </v-icon>
-        Show Tags
-      </v-btn>
-      <Chart
-        :height="height"
-        :chart-data="datacollection"
-        :options="chartOptions"
-      />
-    </v-col>
-    <v-col v-else md="10" offset-md="1" lg="8" offset-lg="2">
-      <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
-        <v-icon left dark>
-          mdi-chart-bar
-        </v-icon>
-        Show Chart
-      </v-btn>
-      <br />
-      <v-chip
-        class="ma-1"
-        v-for="item in data"
-        :key="item.name"
-        @click="redirect(item.name)"
-      >
-        {{ item.name }}
-        <v-chip class="ma-1" x-small color="primary" dark>
-          {{ item.count }}
+  <v-container class="tagToChart text-center" fluid>
+    <v-row justify="center">
+      <v-col v-if="show" sm="12" md="10" lg="8">
+        <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
+          <v-icon left dark>
+            mdi-tag-multiple
+          </v-icon>
+          Show Tags
+        </v-btn>
+        <Chart
+          :height="height"
+          :chart-data="datacollection"
+          :options="chartOptions"
+        />
+      </v-col>
+      <v-col v-else sm="12" md="10" lg="8">
+        <v-btn class="mb-4" rounded color="primary" dark @click="setChartData">
+          <v-icon left dark>
+            mdi-chart-bar
+          </v-icon>
+          Show Chart
+        </v-btn>
+        <br />
+        <v-chip
+          class="ma-1"
+          v-for="item in data"
+          :key="item.name"
+          @click="redirect(item.name)"
+        >
+          {{ item.name }}
+          <v-chip class="ma-1" x-small color="primary" dark>
+            {{ item.count }}
+          </v-chip>
         </v-chip>
-      </v-chip>
-    </v-col>
-  </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
