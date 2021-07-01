@@ -31,6 +31,23 @@
       loading-text="Loading... Please wait"
       mobile-breakpoint="0"
     >
+      <template v-slot:[`item.notion`]="{ item }">
+        <v-btn
+          v-if="matched(200 + item.id)"
+          x-small
+          icon
+          href="https://www.notion.so/practicealgorithms/"
+        >
+          <v-icon color="green">
+            mdi-check
+          </v-icon>
+        </v-btn>
+        <v-btn v-else x-small icon @click="addToNotion(item.id)">
+          <v-icon color="primary">
+            mdi-plus
+          </v-icon>
+        </v-btn>
+      </template>
       <template v-slot:[`item.title`]="{ item }">
         <a :href="item.url">
           {{ item.title }}
@@ -87,15 +104,9 @@
         </v-chip-group>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
-        <td>
-          <v-btn x-small rounded @click="addToNotion(item.id)">
-            <v-icon>
-              mdi-plus
-            </v-icon>
-          </v-btn>{{message}}
-        </td>
+        <td></td>
         <td :style="'max-width:' + headers[0].width">
-          <v-layout class="ma-4" column>
+          <v-layout class="my-4" column>
             <a
               class="my-2"
               v-for="link in quickLinks"
@@ -107,7 +118,7 @@
           </v-layout>
         </td>
         <td :style="'max-width:' + headers[3].width">
-          <div class="text-center">
+          <div>
             <span>Similar Questions</span>
             <v-divider class="ma-2" />
             <v-chip
@@ -185,13 +196,14 @@
 import { postQuestionsToNotion } from "@/apis/postQuestions";
 
 const headers = [
-  { text: "", value: "data-table-expand" },
+  { text: "", value: "notion", width: "20px", sortable: false },
   { text: "#", align: "start", value: "id", width: "80px" },
   { text: "title", value: "title", width: "200px" },
   { text: "diffic.", value: "level", width: "110px" },
   { text: "freq.", value: "frequency", width: "100px", filterable: false },
   { text: "tags", value: "tags", width: "200px", sortable: false },
-  { text: "companies", value: "companies", width: "300px", sortable: false }
+  { text: "companies", value: "companies", width: "300px", sortable: false },
+  { text: "", value: "data-table-expand" }
 ];
 
 const quickLinks = [
@@ -215,7 +227,7 @@ export default {
       expanded: [],
       headers,
       quickLinks,
-      message: ""
+      saved: []
     };
   },
   props: {
@@ -249,10 +261,12 @@ export default {
         : (this.search = key);
     },
     addToNotion(id) {
-      console.log(id);
       postQuestionsToNotion(id).then(response => {
-        this.message = response.data;
+        this.saved.push(id + response.status);
       });
+    },
+    matched(id) {
+      return this.saved.includes(id) ? true : false;
     }
   }
 };
