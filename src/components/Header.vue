@@ -3,6 +3,8 @@
     <v-app-bar dense app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Practice Leetcode</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-icon>mdi-login</v-icon>
       <template v-slot:extension>
         <v-tabs align-with-title>
           <v-tabs-slider></v-tabs-slider>

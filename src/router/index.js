@@ -6,6 +6,7 @@ import Tags from "../views/Tags.vue";
 import Tag from "../views/Tag.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
+import Login from "../components/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     path: "/company/:company",
     name: "Company",
     component: Company
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
   },
   {
     path: "/about",
