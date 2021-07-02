@@ -16,8 +16,23 @@
         </v-text-field>
       </v-col>
     </v-row>
+    <v-row justify="end">
+      <v-col sm="12" md="6" lg="4">
+        <v-select
+          v-model="selectedHeaders"
+          :items="headerList"
+          label="Select Columns"
+          small-chips
+          deletable-chips
+          multiple
+          outlined
+          return-object
+        >
+        </v-select>
+      </v-col>
+    </v-row>
     <v-data-table
-      :headers="headers"
+      :headers="showHeaders"
       :items="questions"
       :page.sync="page"
       :items-per-page="50"
@@ -200,12 +215,24 @@ import { postQuestionsToNotion } from "@/apis/postQuestions";
 
 const headers = [
   { text: "", value: "notion", width: "20px", sortable: false },
-  { text: "#", align: "start", value: "id", width: "80px" },
+  { text: "#", value: "id", width: "80px", align: "start" },
   { text: "title", value: "title", width: "200px" },
   { text: "diffic.", value: "level", width: "110px" },
   { text: "freq.", value: "frequency", width: "100px", filterable: false },
-  { text: "tags", value: "tags", width: "200px", sortable: false },
-  { text: "companies", value: "companies", width: "300px", sortable: false },
+  {
+    text: "tags",
+    value: "tags",
+    width: "200px",
+    align: " d-none d-lg-table-cell",
+    sortable: false
+  },
+  {
+    text: "companies",
+    value: "companies",
+    width: "300px",
+    align: " d-none d-lg-table-cell",
+    sortable: false
+  },
   { text: "", value: "data-table-expand" }
 ];
 
@@ -230,11 +257,22 @@ export default {
       expanded: [],
       headers,
       quickLinks,
-      saved: []
+      saved: [],
+      headerList: [],
+      selectedHeaders: []
     };
   },
   props: {
     questions: Array
+  },
+  created() {
+    this.headerList = Object.values(this.headers);
+    this.selectedHeaders = this.headerList;
+  },
+  computed: {
+    showHeaders() {
+      return this.headerList.filter(s => this.selectedHeaders.includes(s));
+    }
   },
   methods: {
     getChipColor(level) {
