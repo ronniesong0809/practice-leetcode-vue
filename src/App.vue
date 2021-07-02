@@ -82,4 +82,8 @@ export default {
     transform: rotate(-90deg);
   }
 }
+
+.theme--dark.v-application .primary--text {
+  color: #ffffff !important;
+}
 </style>

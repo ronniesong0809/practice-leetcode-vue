@@ -1,20 +1,47 @@
 <template>
   <div class="Header">
-    <v-app-bar dense app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+      src="@/static/images/bg.jpg"
+      fade-img-on-scroll
+      :collapse="!collapseOnScroll"
+      :collapse-on-scroll="collapseOnScroll"
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(156,39,176,0.6), rgba(33,150,243,0.6)"
+        >
+        </v-img>
+      </template>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Practice Leetcode</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div v-if="!$auth.loading">
-        <v-btn v-if="$auth.isAuthenticated" to="/dashboard">
-          Hi {{ this.$auth.user.name }}
-        </v-btn>
-        <v-btn v-if="!$auth.isAuthenticated" @click="login">
-          <v-icon>mdi-login</v-icon>Login
-        </v-btn>
-        <v-btn v-if="$auth.isAuthenticated" @click="logout">
-          <v-icon>mdi-logout</v-icon>Logout
-        </v-btn>
-      </div>
+      <v-btn
+        v-if="!$auth.loading && $auth.isAuthenticated"
+        icon
+        to="/dashboard"
+      >
+        <v-avatar>
+          <img :src="$auth.user.picture" :alt="$auth.user.name" />
+        </v-avatar>
+      </v-btn>
+      <v-btn
+        v-if="!$auth.loading && !$auth.isAuthenticated"
+        icon
+        @click="login"
+      >
+        <v-icon>mdi-login-variant</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="!$auth.loading && $auth.isAuthenticated"
+        icon
+        @click="logout"
+      >
+        <v-icon>mdi-logout-variant</v-icon>
+      </v-btn>
       <template v-slot:extension>
         <v-tabs align-with-title>
           <v-tabs-slider></v-tabs-slider>
@@ -106,6 +133,7 @@ export default {
   data() {
     return {
       drawer: null,
+      collapseOnScroll: true,
       tags: [
         ["Array", "mdi-code-array", "/tag/array"],
         ["Hash Table", "mdi-table-column", "/tag/hash%20table"],
