@@ -4,7 +4,17 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Practice Leetcode</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon>mdi-login</v-icon>
+      <div v-if="!$auth.loading">
+        <v-btn v-if="$auth.isAuthenticated" to="/dashboard">
+          Hi {{ this.$auth.user.name }}
+        </v-btn>
+        <v-btn v-if="!$auth.isAuthenticated" @click="login">
+          <v-icon>mdi-login</v-icon>Login
+        </v-btn>
+        <v-btn v-if="$auth.isAuthenticated" @click="logout">
+          <v-icon>mdi-logout</v-icon>Logout
+        </v-btn>
+      </div>
       <template v-slot:extension>
         <v-tabs align-with-title>
           <v-tabs-slider></v-tabs-slider>
@@ -110,6 +120,18 @@ export default {
       ],
       model: [1]
     };
+  },
+  methods: {
+    // Log the user in
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    // Log the user out
+    logout() {
+      this.$auth.logout({
+        returnTo: window.location.origin
+      });
+    }
   }
 };
 </script>

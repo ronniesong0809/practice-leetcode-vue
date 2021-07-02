@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueGtag from "vue-gtag";
+import { authGuard } from "../auth/authGuard";
 import Home from "../views/Home.vue";
 import Tags from "../views/Tags.vue";
 import Tag from "../views/Tag.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
-import Login from "../components/Login.vue";
+import Dashboard from "../views/Dashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -37,9 +38,10 @@ const routes = [
     component: Company
   },
   {
-    path: "/login",
-    name: "Login",
-    component: Login
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+    beforeEnter: authGuard
   },
   {
     path: "/about",
