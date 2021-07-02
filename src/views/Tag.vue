@@ -1,7 +1,5 @@
 <template>
-  <div class="tag">
-    <Problems :questions="questions" />
-  </div>
+  <Problems class="tag" :questions="questions" />
 </template>
 
 <script>

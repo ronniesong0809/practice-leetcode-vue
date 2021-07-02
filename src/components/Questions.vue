@@ -1,18 +1,21 @@
 <template>
-  <v-container>
-    <v-card-title class="pa-10">
-      <v-row class="justify-center">
-        <v-col cols="12" sm="6">
-          <v-text-field v-model="search" append-icon="mdi-magnify" hide-details>
-            <template v-slot:label>
-              Search from {{ questions.length }}
-              {{ $route.params.tag || $route.params.company }}
-              {{ questions.length === 0 ? "Question" : "Questions" }}
-            </template>
-          </v-text-field>
-        </v-col>
-      </v-row>
-    </v-card-title>
+  <v-container class="tagToChart">
+    <v-row justify="center">
+      <v-col sm="12" md="8" lg="6">
+        <v-text-field
+          class="pb-10"
+          v-model="search"
+          append-icon="mdi-magnify"
+          hide-details
+        >
+          <template v-slot:label>
+            Search from {{ questions.length }}
+            {{ $route.params.tag || $route.params.company }}
+            {{ questions.length === 0 ? "Question" : "Questions" }}
+          </template>
+        </v-text-field>
+      </v-col>
+    </v-row>
     <v-data-table
       :headers="headers"
       :items="questions"
