@@ -16,8 +16,16 @@
         </v-text-field>
       </v-col>
     </v-row>
-    <v-row justify="end">
-      <v-col sm="12" md="6" lg="4">
+    <v-row align="center" justify="end">
+      <v-col md="6" lg="2">
+        <v-select
+          v-model="level"
+          :items="['easy', 'medium', 'hard']"
+          label="Select Difficulty"
+        >
+        </v-select>
+      </v-col>
+      <v-col md="6" lg="4">
         <v-select
           v-model="selectedHeaders"
           :items="headerList"
@@ -33,7 +41,7 @@
     </v-row>
     <v-data-table
       :headers="showHeaders"
-      :items="questions"
+      :items="filteredItems"
       :page.sync="page"
       :items-per-page="50"
       @page-count="pageCount = $event"
@@ -95,37 +103,33 @@
         </template>
       </template>
       <template v-slot:[`item.tags`]="{ item }">
-        <v-chip-group exact column>
-          <v-chip
-            class="ma-1"
-            small
-            v-for="tag in item.tags"
-            :key="tag"
-            @click="searchTag(tag)"
-            :color="onSelected(tag, 'yellow darken-3', '')"
-            :dark="onSelected(tag, true, false)"
-            :outlined="onSelected(tag, true, false)"
-          >
-            {{ tag }}
-          </v-chip>
-        </v-chip-group>
+        <v-chip
+          class="ma-1"
+          small
+          v-for="tag in item.tags"
+          :key="tag"
+          @click="searchTag(tag)"
+          :color="onSelected(tag, 'yellow darken-3', '')"
+          :dark="onSelected(tag, true, false)"
+          :outlined="onSelected(tag, true, false)"
+        >
+          {{ tag }}
+        </v-chip>
       </template>
       <template v-slot:[`item.companies`]="{ item }">
-        <v-chip-group exact column>
-          <v-chip
-            class="ma-1"
-            small
-            v-for="company in item.companies"
-            :key="company"
-            @click="searchCompany(company)"
-            :color="onSelected(company, 'yellow darken-3', '')"
-            :dark="onSelected(company, true, false)"
-            :outlined="onSelected(company, true, false)"
-          >
-            <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
-            {{ company }}
-          </v-chip>
-        </v-chip-group>
+        <v-chip
+          class="ma-1"
+          small
+          v-for="company in item.companies"
+          :key="company"
+          @click="searchCompany(company)"
+          :color="onSelected(company, 'yellow darken-3', '')"
+          :dark="onSelected(company, true, false)"
+          :outlined="onSelected(company, true, false)"
+        >
+          <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
+          {{ company }}
+        </v-chip>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
@@ -241,6 +245,7 @@ export default {
       page: 1,
       pageCount: 0,
       search: "",
+      level: null,
       expanded: [],
       headers,
       quickLinks,
@@ -262,6 +267,11 @@ export default {
   computed: {
     showHeaders() {
       return this.headerList.filter(s => this.selectedHeaders.includes(s));
+    },
+    filteredItems() {
+      return this.questions.filter(i => {
+        return !this.level || i.level === this.level;
+      });
     }
   },
   methods: {
