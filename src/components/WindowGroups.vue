@@ -10,9 +10,9 @@
             <v-card-title>
               <span class="text-h6 font-weight-ligh">
                 {{
-                  index == 1
+                  index == 0
                     ? "0 Month ~ 6 Months"
-                    : index == 2
+                    : index == 1
                     ? "6 Months ~ 1 Year"
                     : "1 Year ~ 2 Years"
                 }}
