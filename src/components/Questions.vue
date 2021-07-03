@@ -22,6 +22,11 @@
           v-model="level"
           :items="['easy', 'medium', 'hard']"
           label="Select Difficulty"
+          small-chips
+          deletable-chips
+          multiple
+          outlined
+          return-object
         >
         </v-select>
       </v-col>
@@ -41,7 +46,7 @@
     </v-row>
     <v-data-table
       :headers="showHeaders"
-      :items="filteredItems"
+      :items="showItems"
       :page.sync="page"
       :items-per-page="50"
       @page-count="pageCount = $event"
@@ -57,6 +62,9 @@
       loading-text="Loading... Please wait"
       mobile-breakpoint="0"
     >
+    <template v-slot:[`header.name`]="{ header }">
+      {{ header.text.toUpperCase() }}
+    </template>
       <template v-slot:[`item.notion`]="{ item }">
         <v-btn
           v-if="matched(200 + item.id)"
@@ -205,7 +213,7 @@ import { postQuestionsToNotion } from "@/apis/postQuestions";
 import WindowGroups from "@/components/WindowGroups";
 
 const headers = [
-  { text: "", value: "notion", width: "20px", sortable: false },
+  { text: "save", value: "notion", width: "20px", sortable: false },
   { text: "#", value: "id", width: "80px", align: "start" },
   { text: "title", value: "title", width: "200px" },
   { text: "diffic.", value: "level", width: "110px" },
@@ -224,8 +232,10 @@ const headers = [
     align: " d-none d-lg-table-cell",
     sortable: false
   },
-  { text: "", value: "data-table-expand" }
+  { text: "more", value: "data-table-expand" }
 ];
+
+const level = ["easy", "medium", "hard"];
 
 const quickLinks = [
   { name: "google", color: "blue", url: "https://www.google.com/search?q=" },
@@ -245,7 +255,7 @@ export default {
       page: 1,
       pageCount: 0,
       search: "",
-      level: null,
+      level,
       expanded: [],
       headers,
       quickLinks,
@@ -268,10 +278,8 @@ export default {
     showHeaders() {
       return this.headerList.filter(s => this.selectedHeaders.includes(s));
     },
-    filteredItems() {
-      return this.questions.filter(i => {
-        return !this.level || i.level === this.level;
-      });
+    showItems() {
+      return this.questions.filter(i => this.level.includes(i.level));
     }
   },
   methods: {
