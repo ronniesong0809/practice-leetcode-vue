@@ -122,80 +122,38 @@
         </v-chip-group>
       </template>
       <template v-slot:expanded-item="{ headers, item }">
-        <td></td>
-        <td :style="'max-width:' + headers[0].width">
-          <v-layout class="my-4" column>
-            <a
-              class="my-2"
-              v-for="link in quickLinks"
-              :key="link.name"
-              :href="link.url + item.title"
-            >
-              <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
-            </a>
-          </v-layout>
-        </td>
-        <td :style="'max-width:' + headers[3].width">
-          <div>
-            <span>Similar Questions</span>
-            <v-divider class="ma-2" />
-            <v-chip
-              class="ma-1"
-              small
-              v-for="tag in item.similarQuestions"
-              :key="tag.title"
-              @click="searchQuestion(tag.title)"
-            >
-              {{ tag.title }}
-            </v-chip>
-          </div>
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="py-5 text-center">
-          <div class="ma-1">
-            <span>0 ~ 6 months</span>
-            <v-divider class="ma-2" />
-            <v-chip
-              class="ma-1"
-              small
-              v-for="company in item.companyStats[1]"
-              :key="company.name"
-              @click="searchCompany(company.name)"
-            >
-              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
-              {{ company.name }}
-            </v-chip>
-          </div>
-          <div class="ma-1">
-            <span>6 months ~ 1 year</span>
-            <v-divider class="ma-2" />
-            <v-chip
-              class="ma-1"
-              small
-              v-for="company in item.companyStats[2]"
-              :key="company.name"
-              @click="searchCompany(company.name)"
-            >
-              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
-              {{ company.name }}
-            </v-chip>
-          </div>
-          <div class="ma-1">
-            <span>1 year ~ 2 years</span>
-            <v-divider class="ma-2" />
-            <v-chip
-              class="ma-1"
-              small
-              v-for="company in item.companyStats[3]"
-              :key="company.name"
-              @click="searchCompany(company.name)"
-            >
-              <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
-              {{ company.name }}
-            </v-chip>
-          </div>
+        <td :colspan="headers.length">
+          <v-container>
+            <v-layout class="my-4" column>
+              <a
+                class="my-2"
+                v-for="link in quickLinks"
+                :key="link.name"
+                :href="link.url + item.title"
+              >
+                <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
+              </a>
+            </v-layout>
+
+            <div>
+              <span>Similar Questions</span>
+              <v-divider class="ma-2" />
+              <v-chip
+                class="ma-1"
+                small
+                v-for="tag in item.similarQuestions"
+                :key="tag.title"
+                @click="searchQuestion(tag.title)"
+              >
+                {{ tag.title }}
+              </v-chip>
+            </div>
+
+            <WindowGroups
+              :companyStats="item.companyStats"
+              @getSearch="setSearch"
+            />
+          </v-container>
         </td>
       </template>
     </v-data-table>
@@ -212,6 +170,7 @@
 
 <script>
 import { postQuestionsToNotion } from "@/apis/postQuestions";
+import WindowGroups from "@/components/WindowGroups";
 
 const headers = [
   { text: "", value: "notion", width: "20px", sortable: false },
@@ -262,6 +221,9 @@ export default {
       selectedHeaders: []
     };
   },
+  components: {
+    WindowGroups
+  },
   props: {
     questions: Array
   },
@@ -296,10 +258,8 @@ export default {
         ? this.$router.push({ name: "Tag", params: { tag: key } })
         : (this.search = key);
     },
-    searchCompany(key) {
-      this.search === key
-        ? this.$router.push({ name: "Company", params: { company: key } })
-        : (this.search = key);
+    setSearch(val) {
+      this.search = val;
     },
     addToNotion(id) {
       postQuestionsToNotion(id).then(response => {
