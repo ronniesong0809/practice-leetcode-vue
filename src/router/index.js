@@ -15,37 +15,58 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      title: "Home"
+    },
     component: Home
   },
   {
     path: "/tag",
     name: "Tags",
+    meta: {
+      title: "Tags"
+    },
     component: Tags
   },
   {
     path: "/tag/:tag",
     name: "Tag",
+    meta: {
+      title: "Tag"
+    },
     component: Tag
   },
   {
     path: "/company",
     name: "Companies",
+    meta: {
+      title: "Companies"
+    },
     component: Companies
   },
   {
     path: "/company/:company",
     name: "Company",
+    meta: {
+      title: "Company"
+    },
     component: Company
   },
   {
     path: "/dashboard",
     name: "Dashboard",
+    meta: {
+      title: "Dashboard"
+    },
     component: Dashboard,
     beforeEnter: authGuard
   },
   {
     path: "/about",
     name: "About",
+    meta: {
+      title: "About"
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

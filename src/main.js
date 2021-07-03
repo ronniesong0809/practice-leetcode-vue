@@ -19,6 +19,14 @@ Vue.use(Auth0Plugin, {
   }
 });
 
+const title = document.title;
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title + " - " + title;
+  }
+  next();
+});
+
 Vue.config.productionTip = false;
 
 new Vue({

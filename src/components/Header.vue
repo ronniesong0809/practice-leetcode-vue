@@ -135,16 +135,18 @@ export default {
       drawer: null,
       collapseOnScroll: true,
       tags: [
-        ["Array", "mdi-code-array", "/tag/array"],
-        ["Hash Table", "mdi-table-column", "/tag/hash%20table"],
-        ["Tree", "mdi-graph", "/tag/tree"],
-        ["String", "mdi-form-textbox-password", "/tag/string"]
+        ["Array", "mdi-code-array", "/tag/Array"],
+        ["Hash Table", "mdi-table-column", "/tag/Hash Table"],
+        ["Tree", "mdi-graph", "/tag/Tree"],
+        ["String", "mdi-form-textbox-password", "/tag/String"],
+        ["All", "mdi-dots-horizontal", "/tag"]
       ],
       companies: [
         ["Google", "mdi-google", "/company/Google"],
         ["Amazon", "mdi-amazon", "/company/Amazon"],
         ["Facebook", "mdi-facebook", "/company/Facebook"],
-        ["Linkedin", "mdi-linkedin", "/company/Linkedin"]
+        ["Linkedin", "mdi-linkedin", "/company/Linkedin"],
+        ["All", "mdi-dots-horizontal", "/company"]
       ],
       model: [1]
     };
