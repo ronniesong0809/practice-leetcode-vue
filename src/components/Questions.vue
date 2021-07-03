@@ -102,9 +102,9 @@
             v-for="tag in item.tags"
             :key="tag"
             @click="searchTag(tag)"
-            :color="tag == search ? 'yellow darken-3' : ''"
-            :dark="tag == search ? true : false"
-            :outlined="tag == search ? true : false"
+            :color="onSelected(tag, 'yellow darken-3', '')"
+            :dark="onSelected(tag, true, false)"
+            :outlined="onSelected(tag, true, false)"
           >
             {{ tag }}
           </v-chip>
@@ -118,9 +118,9 @@
             v-for="company in item.companies"
             :key="company"
             @click="searchCompany(company)"
-            :color="company == search ? 'yellow darken-3' : ''"
-            :dark="company == search ? true : false"
-            :outlined="company == search ? true : false"
+            :color="onSelected(company, 'yellow darken-3', '')"
+            :dark="onSelected(company, true, false)"
+            :outlined="onSelected(company, true, false)"
           >
             <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
             {{ company }}
@@ -296,6 +296,12 @@ export default {
     },
     setSearch(val) {
       this.search = val;
+    },
+    onSelected(val, selected, unselected) {
+      return this.search != "" &&
+        val.toLowerCase().includes(this.search.toLowerCase())
+        ? selected
+        : unselected;
     },
     addToNotion(id) {
       postQuestionsToNotion(id).then(response => {

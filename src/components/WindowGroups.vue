@@ -26,9 +26,9 @@
                 v-for="company in Stats"
                 :key="company.name"
                 @click="searchCompany(company.name)"
-                :color="company.name == search ? 'yellow darken-3' : ''"
-                :dark="company.name == search ? true : false"
-                :outlined="company.name == search ? true : false"
+                :color="onSelected(company.name, 'yellow darken-3', '')"
+                :dark="onSelected(company.name, true, false)"
+                :outlined="onSelected(company.name, true, false)"
               >
                 <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
                 {{ company.name }}
@@ -64,6 +64,12 @@ export default {
       this.search === key
         ? this.$router.push({ name: "Company", params: { company: key } })
         : this.$emit("getSearch", key);
+    },
+    onSelected(val, selected, unselected) {
+      return this.search != "" &&
+        val.toLowerCase().includes(this.search.toLowerCase())
+        ? selected
+        : unselected;
     }
   }
 };
