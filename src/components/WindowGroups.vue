@@ -26,6 +26,9 @@
                 v-for="company in Stats"
                 :key="company.name"
                 @click="searchCompany(company.name)"
+                :color="company.name == search ? 'yellow darken-3' : ''"
+                :dark="company.name == search ? true : false"
+                :outlined="company.name == search ? true : false"
               >
                 <v-icon left> mdi-{{ company.name.toLowerCase() }} </v-icon>
                 {{ company.name }}
@@ -49,7 +52,8 @@
 export default {
   name: "WindowGroups",
   props: {
-    companyStats: Array
+    companyStats: Array,
+    search: String
   },
   data: () => ({
     length: 3,

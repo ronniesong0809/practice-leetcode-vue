@@ -102,6 +102,9 @@
             v-for="tag in item.tags"
             :key="tag"
             @click="searchTag(tag)"
+            :color="tag == search ? 'yellow darken-3' : ''"
+            :dark="tag == search ? true : false"
+            :outlined="tag == search ? true : false"
           >
             {{ tag }}
           </v-chip>
@@ -115,6 +118,9 @@
             v-for="company in item.companies"
             :key="company"
             @click="searchCompany(company)"
+            :color="company == search ? 'yellow darken-3' : ''"
+            :dark="company == search ? true : false"
+            :outlined="company == search ? true : false"
           >
             <v-icon left> mdi-{{ company.toLowerCase() }} </v-icon>
             {{ company }}
@@ -172,6 +178,7 @@
 
             <WindowGroups
               :companyStats="item.companyStats"
+              :search="search"
               @getSearch="setSearch"
             />
           </v-container>
@@ -259,17 +266,20 @@ export default {
   },
   methods: {
     getChipColor(level) {
-      if (level == "easy") return "green";
-      else if (level == "medium") return "orange";
-      else return "red";
+      return level == "easy" ? "green" : level == "medium" ? "orange" : "red";
     },
     getBarColor(frequency) {
-      if (frequency === 0) return "grey lighten-1";
-      if (frequency > 0 && frequency < 25) return "red lighten-1";
-      if (frequency >= 25 && frequency < 50) return "orange lighten-1";
-      if (frequency >= 50 && frequency < 75) return "green lighten-1";
-      else if (frequency >= 75 && frequency < 99) return "green darken-2";
-      else return "blue darken-1";
+      return frequency === 0
+        ? "grey lighten-1"
+        : frequency > 0 && frequency < 25
+        ? "red lighten-1"
+        : frequency >= 25 && frequency < 50
+        ? "orange lighten-1"
+        : frequency >= 50 && frequency < 75
+        ? "green lighten-1"
+        : frequency >= 75 && frequency < 99
+        ? "green darken-2"
+        : "blue darken-1";
     },
     searchQuestion(key) {
       this.search === key ? "" : (this.search = key);

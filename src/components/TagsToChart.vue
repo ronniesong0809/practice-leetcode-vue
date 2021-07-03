@@ -92,10 +92,9 @@ export default {
     },
     getColor(offset, alpha) {
       offset = offset * 2;
-      const color = !this.$vuetify.theme.dark
+      return !this.$vuetify.theme.dark
         ? `rgba(${156 + offset}, ${39 + offset}, ${176 - offset}, ${alpha})`
         : `rgba(${33 + offset}, ${150 + offset}, ${243 - offset}, ${alpha})`;
-      return color;
     },
     setColor(index) {
       this.backgroundColor.push(this.getColor(index, 0.8));
