@@ -123,31 +123,52 @@
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          <v-container>
-            <v-layout class="my-4" column>
-              <a
-                class="my-2"
-                v-for="link in quickLinks"
-                :key="link.name"
-                :href="link.url + item.title"
-              >
-                <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
-              </a>
-            </v-layout>
-
-            <div>
-              <span>Similar Questions</span>
-              <v-divider class="ma-2" />
-              <v-chip
-                class="ma-1"
-                small
-                v-for="tag in item.similarQuestions"
-                :key="tag.title"
-                @click="searchQuestion(tag.title)"
-              >
-                {{ tag.title }}
-              </v-chip>
-            </div>
+          <v-container class="my-5">
+            <v-row justify="center">
+              <v-col md="12" lg="8" xl="6">
+                <v-card elevation="5">
+                  <v-card-title>
+                    <span class="text-h6 font-weight-ligh">
+                      Quick Links
+                    </span>
+                  </v-card-title>
+                  <v-divider class="ma-2" />
+                  <v-card-text>
+                    <a
+                      class="mx-5"
+                      v-for="link in quickLinks"
+                      :key="link.name"
+                      :href="link.url + item.title"
+                    >
+                      <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
+                    </a>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col md="12" lg="8" xl="6">
+                <v-card elevation="5">
+                  <v-card-title>
+                    <span class="text-h6 font-weight-ligh">
+                      Similar Questions
+                    </span>
+                  </v-card-title>
+                  <v-divider class="ma-2" />
+                  <v-card-text>
+                    <v-chip
+                      class="ma-1"
+                      small
+                      v-for="tag in item.similarQuestions"
+                      :key="tag.title"
+                      @click="searchQuestion(tag.title)"
+                    >
+                      {{ tag.title }}
+                    </v-chip>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
 
             <WindowGroups
               :companyStats="item.companyStats"
