@@ -279,6 +279,11 @@ export default {
         ? this.$router.push({ name: "Tag", params: { tag: key } })
         : (this.search = key);
     },
+    searchCompany(key) {
+      this.search === key
+        ? this.$router.push({ name: "Company", params: { company: key } })
+        : (this.search = key);
+    },
     setSearch(val) {
       this.search = val;
     },
