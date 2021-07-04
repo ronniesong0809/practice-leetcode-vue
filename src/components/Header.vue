@@ -55,7 +55,7 @@
             Companies
           </v-tab>
           <v-tab to="/about">
-            More
+            Milestones
           </v-tab>
         </v-tabs>
       </template>
@@ -117,7 +117,7 @@
           </v-list-group>
 
           <v-list-item link to="/about">
-            <v-list-item-title>More</v-list-item-title>
+            <v-list-item-title>Milestones</v-list-item-title>
             <v-list-item-icon>
               <v-icon>mdi-information</v-icon>
             </v-list-item-icon>
