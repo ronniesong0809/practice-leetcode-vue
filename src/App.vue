@@ -8,6 +8,7 @@
     <div id="content" style="height:100%">
       <router-view :key="$route.fullPath" />
     </div>
+    <Footer />
   </v-app>
 </template>
 
@@ -15,10 +16,12 @@
 import DarkTheme from "@/components/DarkTheme.vue";
 import ScrollTotop from "@/components/ScrollTotop.vue";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     Header,
+    Footer,
     DarkTheme,
     ScrollTotop
   }
