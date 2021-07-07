@@ -16,12 +16,14 @@
         </v-text-field>
       </v-col>
     </v-row>
-    <v-row align="center" justify="end">
-      <v-col md="6" lg="2">
+    <v-row align="start" justify="space-between">
+      <v-col md="6" lg="5">
         <v-select
-          v-model="level"
-          :items="['easy', 'medium', 'hard']"
-          label="Select Difficulty"
+          v-model="selectedHeaders"
+          :items="headerList"
+          label="Select Columns"
+          prepend-inner-icon="mdi-tag-multiple"
+          :menu-props="{ bottom: true, offsetY: true }"
           small-chips
           deletable-chips
           multiple
@@ -30,11 +32,13 @@
         >
         </v-select>
       </v-col>
-      <v-col md="6" lg="4">
+      <v-col md="6" lg="3">
         <v-select
-          v-model="selectedHeaders"
-          :items="headerList"
-          label="Select Columns"
+          v-model="level"
+          :items="['easy', 'medium', 'hard']"
+          label="Select Difficulty"
+          prepend-inner-icon="mdi-signal-cellular-3"
+          :menu-props="{ bottom: true, offsetY: true }"
           small-chips
           deletable-chips
           multiple
@@ -56,32 +60,12 @@
       :single-expand="true"
       :expanded.sync="expanded"
       item-key="id"
-      show-expand
+      :show-expand="$auth.isAuthenticated ? true : false"
       class="elevation-5"
       :loading="!questions.length"
       loading-text="Loading... Please wait"
       mobile-breakpoint="0"
     >
-    <template v-slot:[`header.name`]="{ header }">
-      {{ header.text.toUpperCase() }}
-    </template>
-      <template v-slot:[`item.notion`]="{ item }">
-        <v-btn
-          v-if="matched(200 + item.id)"
-          x-small
-          icon
-          href="https://www.notion.so/practicealgorithms/"
-        >
-          <v-icon color="green">
-            mdi-check
-          </v-icon>
-        </v-btn>
-        <v-btn v-else x-small icon @click="addToNotion(item.id)">
-          <v-icon color="primary">
-            mdi-plus
-          </v-icon>
-        </v-btn>
-      </template>
       <template v-slot:[`item.title`]="{ item }">
         <a :href="item.url">
           {{ item.title }}
@@ -139,7 +123,10 @@
           {{ company }}
         </v-chip>
       </template>
-      <template v-slot:expanded-item="{ headers, item }">
+      <template
+        v-if="$auth.isAuthenticated"
+        v-slot:expanded-item="{ headers, item }"
+      >
         <td :colspan="headers.length">
           <v-container class="my-5">
             <v-row justify="center">
@@ -153,13 +140,33 @@
                   <v-divider class="ma-2" />
                   <v-card-text>
                     <a
-                      class="mx-5"
                       v-for="link in quickLinks"
+                      class="mx-5"
                       :key="link.name"
                       :href="link.url + item.title"
                     >
                       <v-icon :color="link.color"> mdi-{{ link.name }} </v-icon>
                     </a>
+                    <v-btn
+                      class="mx-5"
+                      v-if="matched(200 + item.id)"
+                      icon
+                      href="https://www.notion.so/practicealgorithms/"
+                    >
+                      <v-icon color="green">
+                        mdi-check
+                      </v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      class="mx-5"
+                      icon
+                      @click="addToNotion(item.id)"
+                    >
+                      <v-icon color="primary">
+                        mdi-plus
+                      </v-icon>
+                    </v-btn>
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -213,7 +220,6 @@ import { postQuestionsToNotion } from "@/apis/postQuestions";
 import WindowGroups from "@/components/WindowGroups";
 
 const headers = [
-  { text: "save", value: "notion", width: "20px", sortable: false },
   { text: "#", value: "id", width: "80px", align: "start" },
   { text: "title", value: "title", width: "200px" },
   { text: "diffic.", value: "level", width: "110px" },
@@ -231,8 +237,7 @@ const headers = [
     width: "300px",
     align: " d-none d-lg-table-cell",
     sortable: false
-  },
-  { text: "more", value: "data-table-expand" }
+  }
 ];
 
 const level = ["easy", "medium", "hard"];
