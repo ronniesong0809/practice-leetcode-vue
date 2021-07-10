@@ -137,7 +137,7 @@
                       Quick Links
                     </span>
                   </v-card-title>
-                  <v-divider class="ma-2" />
+                  <v-divider class="ma-2 mt-0" />
                   <v-card-text>
                     <a
                       v-for="link in quickLinks"
@@ -168,6 +168,13 @@
                       </v-icon>
                     </v-btn>
                   </v-card-text>
+                  <v-footer>
+                    <v-row>
+                      <v-col class="text-center caption">
+                        {{ quickLinks.length + 1 }} Quick Links
+                      </v-col>
+                    </v-row>
+                  </v-footer>
                 </v-card>
               </v-col>
             </v-row>
@@ -179,7 +186,7 @@
                       Similar Questions
                     </span>
                   </v-card-title>
-                  <v-divider class="ma-2" />
+                  <v-divider class="ma-2 mt-0" />
                   <v-card-text>
                     <v-chip
                       class="ma-1"
@@ -191,6 +198,13 @@
                       {{ tag.title }}
                     </v-chip>
                   </v-card-text>
+                  <v-footer>
+                    <v-row>
+                      <v-col class="text-center caption">
+                        {{ item.similarQuestions.length }} Similar Questions
+                      </v-col>
+                    </v-row>
+                  </v-footer>
                 </v-card>
               </v-col>
             </v-row>

@@ -3,7 +3,7 @@
     <v-col md="12" lg="8" xl="6">
       <v-window v-model="window" class="elevation-5">
         <v-window-item
-          v-for="(Stats, index) in companyStats.slice(1, 4)"
+          v-for="(Stats, index) in companyStats"
           :key="index"
         >
           <v-card>
@@ -18,7 +18,7 @@
                 }}
               </span>
             </v-card-title>
-            <v-divider class="ma-2" />
+            <v-divider class="ma-2 mt-0" />
             <v-card-text>
               <v-chip
                 class="ma-1"
@@ -34,13 +34,20 @@
                 {{ company.name }}
               </v-chip>
             </v-card-text>
+            <v-footer>
+                    <v-row>
+                      <v-col class="text-center caption">
+                        {{ Stats.length }} Companies
+                      </v-col>
+                    </v-row>
+                  </v-footer>
           </v-card>
         </v-window-item>
       </v-window>
       <v-item-group v-model="window" class="text-center shrink mt-2" mandatory>
         <v-item v-for="n in length" :key="n" v-slot="{ active, toggle }">
           <v-btn :input-value="active" icon @click="toggle">
-            <v-icon>mdi-record</v-icon>
+            <v-icon color="primary">mdi-record</v-icon>
           </v-btn>
         </v-item>
       </v-item-group>
@@ -52,7 +59,7 @@
 export default {
   name: "WindowGroups",
   props: {
-    companyStats: Array,
+    companyStats: Object,
     search: String
   },
   data: () => ({
