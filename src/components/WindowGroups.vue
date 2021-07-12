@@ -2,10 +2,7 @@
   <v-row class="windows" justify="center">
     <v-col md="12" lg="8" xl="6">
       <v-window v-model="window" class="elevation-5">
-        <v-window-item
-          v-for="(Stats, index) in companyStats"
-          :key="index"
-        >
+        <v-window-item v-for="(Stats, index) in companyStats" :key="index">
           <v-card>
             <v-card-title>
               <span class="text-h6 font-weight-ligh">
@@ -35,12 +32,12 @@
               </v-chip>
             </v-card-text>
             <v-footer>
-                    <v-row>
-                      <v-col class="text-center caption">
-                        {{ Stats.length }} Companies
-                      </v-col>
-                    </v-row>
-                  </v-footer>
+              <v-row>
+                <v-col class="text-center caption">
+                  {{ Stats.length }} Companies
+                </v-col>
+              </v-row>
+            </v-footer>
           </v-card>
         </v-window-item>
       </v-window>
