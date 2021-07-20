@@ -9,12 +9,11 @@
           <v-tab-item class="pa-5">
             <Disqus
               ref="disqus"
-              shortname="practice-algorithms"
+              :shortname="disqus_shortname"
               :pageConfig="{
-                url: `${getUrl()}/?search=${item.title}`,
+                url: `${url}/?search=${item.title}`,
                 identifier: `${item.id}`,
-                title: `${item.id}. ${item.title}`,
-                language: 'en_US'
+                title: `${item.id}. ${item.title}`
               }"
             />
           </v-tab-item>
@@ -23,11 +22,11 @@
             <vue-cusdis
               :key="item.id"
               :attrs="{
-                host: 'https://cusdis-lc.vercel.app',
-                appId: '2cb59828-b026-4ae9-8964-a50a5efab645',
+                host: cusdis_appId,
+                appId: cusdis_pageId,
                 pageId: `${item.id}`,
                 pageTitle: `${item.id}. ${item.title}`,
-                pageUrl: `${getUrl()}/?search=${item.title}`,
+                pageUrl: `${url}/?search=${item.title}`,
                 theme: theme()
               }"
             >
@@ -49,13 +48,18 @@ export default {
     Disqus,
     VueCusdis
   },
+  data() {
+    return {
+      url: window.location.origin,
+      disqus_shortname: process.env.VUE_APP_DISQUS_SHORTNAME,
+      cusdis_appId: process.env.VUE_APP_CUSDIS_APP_ID,
+      cusdis_pageId: process.env.VUE_APP_CUSDIS_PAGE_ID
+    };
+  },
   props: {
     item: Object
   },
   methods: {
-    getUrl() {
-      return window.location.origin;
-    },
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
     }
