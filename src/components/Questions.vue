@@ -214,6 +214,9 @@
               :search="search"
               @getSearch="setSearch"
             />
+
+            <CommentWidget class="mt-5" :key="item.id" :item="item">
+            </CommentWidget>
           </v-container>
         </td>
       </template>
@@ -232,6 +235,7 @@
 <script>
 import { postQuestionsToNotion } from "@/apis/postQuestions";
 import WindowGroups from "@/components/WindowGroups";
+import CommentWidget from "@/components/CommentWidget";
 
 const headers = [
   { text: "#", value: "id", width: "80px", align: "start" },
@@ -284,7 +288,8 @@ export default {
     };
   },
   components: {
-    WindowGroups
+    WindowGroups,
+    CommentWidget
   },
   props: {
     questions: Array
@@ -292,6 +297,7 @@ export default {
   created() {
     this.headerList = Object.values(this.headers);
     this.selectedHeaders = this.headerList;
+    this.search = this.$route.query.search ? this.$route.query.search : "";
   },
   computed: {
     showHeaders() {
