@@ -38,7 +38,7 @@ export default {
 .fab-container {
   position: fixed;
   z-index: 1;
-  bottom: 0px;
+  bottom: 72px;
   right: 0px;
 }
 
