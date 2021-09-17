@@ -5,7 +5,7 @@ import VueGtag from "vue-gtag";
 Vue.use(Vuex);
 
 Vue.use(VueGtag, {
-  config: { id: "G-M0ZWB8YB40" }
+  config: { id: `${process.env.VUE_APP_GTAG}` }
 });
 
 export default new Vuex.Store({
